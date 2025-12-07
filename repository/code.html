@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Shoe Sole Layered Structure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom 3D-like perspective for the layers */
+        .perspective-container {
+            perspective: 1000px;
+        }
+        
+        .layer-stack {
+            transform-style: preserve-3d;
+            transform: rotateX(15deg) rotateY(-10deg);
+            transition: transform 0.5s ease;
+        }
+
+        .layer-stack:hover {
+            transform: rotateX(5deg) rotateY(-5deg);
+        }
+
+        .layer-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        /* Lift effect on hover */
+        .layer-group:hover .layer-card {
+            transform: translateY(-10px) translateZ(20px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Connection lines (schematic look) */
+        .connector-line {
+            position: absolute;
+            background-color: #cbd5e1;
+            z-index: -1;
+        }
+
+        .tech-glow {
+            animation: pulse-glow 3s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-slate-800">
+
+    <div class="max-w-5xl mx-auto p-6">
+        <!-- Header -->
+        <div class="mb-10 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Smart Shoe Sole Architecture</h1>
+            <p class="text-slate-600 max-w-2xl mx-auto">Exploded view of the standalone step-counting EVA insole. Hover over the layers to explore components.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Visual Diagram Side -->
+            <div class="perspective-container h-[600px] flex items-center justify-center relative">
+                <div class="layer-stack w-full max-w-md relative space-y-[-40px]">
+                    
+                    <!-- Layer 5: Top Cover -->
+                    <div class="layer-group cursor-pointer group relative z-50" onclick="showInfo('top-cover')">
+                        <div class="layer-card bg-slate-200 h-16 rounded-[2rem] rounded-br-[4rem] border-2 border-slate-300 shadow-lg flex items-center justify-center transform group-hover:-translate-y-8 transition-transform duration-500">
+                            <span class="font-semibold text-slate-500">1. Antimicrobial Top Cover</span>
+                        </div>
+                        <!-- Label Line -->
+                        <div class="absolute right-0 top-1/2 w-12 h-[2px] bg-slate-400 translate-x-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+
+                    <!-- Layer 4: Upper EVA Buffer -->
+                    <div class="layer-group cursor-pointer group relative z-40" onclick="showInfo('upper-eva')">
+                        <div class="layer-card bg-blue-100 h-20 rounded-[2rem] rounded-br-[4rem] border-2 border-blue-200 shadow-md flex items-center justify-center transform group-hover:-translate-y-4 transition-transform duration-500">
+                            <span class="font-semibold text-blue-600">2. Upper EVA Foam Buffer</span>
+                        </div>
+                    </div>
+
+                    <!-- Layer 3: Tech Layer (The Core) -->
+                    <div class="layer-group cursor-pointer group relative z-30" onclick="showInfo('tech-layer')">
+                        <div class="layer-card bg-indigo-900 h-8 rounded-[2rem] rounded-br-[4rem] border-2 border-indigo-700 shadow-xl flex items-center justify-center relative overflow-hidden transform group-hover:translate-y-0 transition-transform duration-500">
+                            
+                            <!-- Circuit Patterns -->
+                            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#4f46e5 1px, transparent 1px); background-size: 10px 10px;"></div>
+                            
+                            <!-- Components visualized -->
+                            <div class="flex items-center space-x-8 z-10">
+                                <div class="w-4 h-4 rounded-full bg-yellow-400 tech-glow shadow-[0_0_10px_rgba(250,204,21,0.8)]" title="LED Feedback"></div>
+                                <div class="h-1 w-16 bg-indigo-400 rounded-full relative">
+                                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 border-2 border-indigo-300 rounded bg-indigo-800" title="Microcontroller"></div>
+                                </div>
+                                <div class="w-24 h-1 bg-red-500 rounded opacity-60" title="Pressure Sensor Strip"></div>
+                            </div>
+                            <span class="absolute right-6 font-bold text-white text-xs tracking-wider">SMART CORE</span>
+                        </div>
+                    </div>
+
+                    <!-- Layer 2: Lower EVA Chassis -->
+                    <div class="layer-group cursor-pointer group relative z-20" onclick="showInfo('lower-eva')">
+                        <div class="layer-card bg-blue-100 h-24 rounded-[2rem] rounded-br-[4rem] border-2 border-blue-200 shadow-lg flex items-center justify-center transform group-hover:translate-y-4 transition-transform duration-500">
+                            <div class="text-center">
+                                <span class="font-semibold text-blue-600 block">4. Lower EVA Chassis</span>
+                                <span class="text-xs text-blue-400">(Embedded Cavities)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layer 1: Outsole/Base -->
+                    <div class="layer-group cursor-pointer group relative z-10" onclick="showInfo('base')">
+                        <div class="layer-card bg-slate-800 h-12 rounded-[2rem] rounded-br-[4rem] border-b-4 border-slate-950 shadow-2xl flex items-center justify-center transform group-hover:translate-y-8 transition-transform duration-500">
+                            <span class="font-semibold text-slate-300">5. Protective Base Layer</span>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Interaction Prompt -->
+                <div class="absolute bottom-0 text-slate-400 text-sm animate-bounce">
+                    Tap any layer for details
+                </div>
+            </div>
+
+            <!-- Info Panel Side -->
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 min-h-[400px] flex flex-col justify-center">
+                <h2 class="text-sm font-bold text-indigo-600 uppercase tracking-wide mb-2">Component Detail</h2>
+                
+                <div id="info-display">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">3. Smart Core Layer</h3>
+                    <div class="space-y-4 text-slate-600">
+                        <p>This is the "brain" of the shoe sole.</p>
+                        
+                        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                            <h4 class="font-semibold text-indigo-900 mb-2">Key Components:</h4>
+                            <ul class="list-disc list-inside space-y-1 text-sm">
+                                <li><strong>Microcontroller:</strong> Processes gait data locally.</li>
+                                <li><strong>Pressure Sensor:</strong> Thin film resistive sensor detecting foot strike force.</li>
+                                <li><strong>Feedback Unit:</strong> Vibration motor for tactile alerts and LED for status.</li>
+                                <li><strong>Power:</strong> Thin coin-cell or lithium polymer battery.</li>
+                            </ul>
+                        </div>
+                        
+                        <p class="text-sm italic mt-4">"The data is stored internally and accessed through physical feedback mechanisms."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Specs Table -->
+        <div class="mt-16 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                <h3 class="font-bold text-slate-700">Technical Specifications</h3>
+            </div>
+            <div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                        </div>
+                        <h4 class="font-semibold text-slate-900">Material</h4>
+                    </div>
+                    <p class="text-sm text-slate-600">High-density flexible EVA (Ethylene Vinyl Acetate) foam chassis for shock absorption and sensor protection.</p>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-purple-100 rounded-lg text-purple-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
+                        </div>
+                        <h4 class="font-semibold text-slate-900">Sensors</h4>
+                    </div>
+                    <p class="text-sm text-slate-600">Piezoelectric or FSR (Force Sensitive Resistor) layer calibrated for heel-strike and toe-off detection patterns.</p>
+                </div>
+
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-green-100 rounded-lg text-green-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <h4 class="font-semibold text-slate-900">Interface</h4>
+                    </div>
+                    <p class="text-sm text-slate-600">Non-wireless. Haptic feedback engine (vibration) for goal completion. LED indicator accessible via translucent sole section.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const infoData = {
+            'top-cover': {
+                title: '1. Antimicrobial Top Cover',
+                content: 'A moisture-wicking fabric layer designed for user comfort. It protects the underlying electronics from sweat and friction while ensuring a snug fit inside the shoe.',
+                icon: '🛡️'
+            },
+            'upper-eva': {
+                title: '2. Upper EVA Foam Buffer',
+                content: 'A thin layer of flexible Ethylene Vinyl Acetate (EVA). This acts as a cushion for the foot and a protective seal for the sensitive electronic layer below.',
+                icon: '☁️'
+            },
+            'tech-layer': {
+                title: '3. Smart Core Layer',
+                content: '<strong>The Heart of the System:</strong><br>• <strong>Microcontroller:</strong> Low-power unit counting steps.<br>• <strong>Pressure Sensor:</strong> Detects force variations.<br>• <strong>Battery:</strong> Power source.<br>• <strong>Vibration Motor:</strong> Provides haptic feedback.',
+                icon: '⚡'
+            },
+            'lower-eva': {
+                title: '4. Lower EVA Chassis',
+                content: 'The main structural component. It contains precise cutouts (cavities) to securely house the microcontroller board and battery, preventing them from shifting during movement.',
+                icon: '🦶'
+            },
+            'base': {
+                title: '5. Protective Base Layer',
+                content: 'A durable bottom layer that interfaces with the shoe interior. It provides structural integrity to the insertable insole and prevents wear on the electronic housing.',
+                icon: '🏗️'
+            }
+        };
+
+        function showInfo(layerId) {
+            const data = infoData[layerId];
+            const display = document.getElementById('info-display');
+            
+            // Simple animation for content switch
+            display.style.opacity = '0';
+            
+            setTimeout(() => {
+                display.innerHTML = `
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                        <span>${data.icon}</span> ${data.title}
+                    </h3>
+                    <div class="space-y-4 text-slate-600 text-lg leading-relaxed">
+                        <p>${data.content}</p>
+                    </div>
+                `;
+                display.style.opacity = '1';
+            }, 200);
+        }
+    </script>
+</body>
+</html>
